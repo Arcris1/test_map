@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Multiple Locations on Leaflet Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        #map {
+            height: 60%; /* Reduced height for the map */
+            width: 100%; /* Full width */
+        }
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        #info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        #info-table th, #info-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        #info-table th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <table id="info-table">
+        <thead>
+            <tr>
+                <th>Location</th>
+                <th>Distance (km)</th>
+            </tr>
+        </thead>
+        <tbody id="info"></tbody> <!-- Table body to display location information -->
+    </table>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        // Initialize the map and set its view to a chosen geographical coordinates and a zoom level
+        var map = L.map('map').setView([14.554729, 121.024445], 12); // Centered at Manila, Philippines
+
+        // Set up the OpenStreetMap layer
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Custom icon for markers
+        var customIcon = L.icon({
+            iconUrl: '1673221.png', // Replace with the path to your custom icon
+            iconSize: [38, 38], // Size of the icon
+            iconAnchor: [19, 38], // Point of the icon which will correspond to marker's location
+            popupAnchor: [0, -38] // Point from which the popup should open relative to the iconAnchor
+        });
+
+        // Array of markers with coordinates and popup content
+        var markers = [
+            {
+                coords: [14.420900, 121.036560],
+                popupContent: '<h1>Alabang</h1>',
+                icon: customIcon 
+            },
+            {
+                coords: [14.326320, 120.936012],
+                popupContent: '<h1>Dasmariñas</h1>',
+                icon: customIcon 
+            },
+            {
+                coords: [14.4258, 121.0321],
+                popupContent: '<h1>Alabang Town Center</h1>',
+                icon: customIcon 
+            }
+        ];
+
+        // Function to calculate distance between two points
+        function calculateDistance(lat1, lon1, lat2, lon2) {
+            var R = 6371; // Radius of the earth in km
+            var dLat = deg2rad(lat2 - lat1); // deg2rad below
+            var dLon = deg2rad(lon2 - lon1);
+            var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+                    Math.sin(dLon / 2) * Math.sin(dLon / 2);
+            var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            var d = R * c; // Distance in km
+            return d;
+        }
+
+        function deg2rad(deg) {
+            return deg * (Math.PI / 180)
+        }
+
+        // Loop through markers and add to map
+        markers.forEach(function(marker) {
+            L.marker(marker.coords, { icon: marker.icon })
+                .addTo(map)
+                .bindPopup(marker.popupContent);
+        });
+
+        // Function to add the current location marker
+        var currentLocationIcon = L.icon({
+            iconUrl: '1673221.png', // Replace with the path to your current location icon
+            iconSize: [38, 38],
+            iconAnchor: [19, 38],
+            popupAnchor: [0, -38]
+        });
+
+        function addCurrentLocationMarker(lat, lng) {
+            var currentLocation = L.latLng(lat, lng);
+            var currentLocationMarker = L.marker([lat, lng], { icon: currentLocationIcon }).addTo(map)
+                .bindPopup('<h1>Current Location</h1>')
+                .openPopup();
+            
+            // Optionally, recenter the map to the current location
+            map.setView([lat, lng], 12);
+
+            // Populate the table with location information
+            var infoTable = document.getElementById('info');
+            infoTable.innerHTML = ''; // Clear previous entries
+
+            markers.forEach(function(marker) {
+                var markerCoords = marker.coords;
+                var markerLocation = L.latLng(markerCoords);
+                var distance = currentLocation.distanceTo(markerLocation) / 1000; // Distance in kilometers
+
+                var row = document.createElement('tr');
+                var locationCell = document.createElement('td');
+                locationCell.textContent = marker.popupContent.replace('<h1>', '').replace('</h1>', '');
+                row.appendChild(locationCell);
+
+                var distanceCell = document.createElement('td');
+                distanceCell.textContent = distance.toFixed(2);
+                row.appendChild(distanceCell);
+
+                infoTable.appendChild(row);
+
+                // Update the popup content with distance info
+                L.marker(markerCoords, { icon: marker.icon })
+                    .addTo(map)
+                    .bindPopup(marker.popupContent + '<br>Distance: ' + distance.toFixed(2) + ' km');
+            });
+        }
+
+        // Check if the Geolocation API is available
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                function(position) {
+                    var lat = position.coords.latitude;
+                    var lng = position.coords.longitude;
+                    addCurrentLocationMarker(lat, lng);
+                },
+                function(error) {
+                    console.error("Error getting current location:", error);
+                }
+            );
+        } else {
+            console.error("Geolocation is not supported by this browser.");
+        }
+    </script>
+</body>
+</html>

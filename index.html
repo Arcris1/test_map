@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arcris Silang - Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for the card layout */
+        .card {
+            background-color: #1c1c1c;
+            border-radius: 15px;
+            color: white;
+        }
+
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: #333;
+            border-radius: 50%;
+            margin: 0 5px;
+        }
+
+        .social-icons a:hover {
+            background-color: #007bff;
+        }
+    </style>
+</head>
+
+<body class="bg-black text-white">
+    <div class="container mx-auto p-5">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-5">
+            <div class="col-span-10 grid lg:grid-cols-4 gap-3">
+                <!-- Introduction Card -->
+                <div class="card col-span-2 p-4">
+                    <h1 class="text-2xl font-bold">Hi, I'm Arcris Silang —</h1>
+                    <p class="mt-2">JR PHP Programmer, currently working with Laravel, CodeIgniter4, PHP, jQuery, Vue.js, Flutter, Dart, HTML, and CSS.</p>
+                </div>
+                <!-- Image Card -->
+                <div class="card col-span-1">
+                    <img src="https://via.placeholder.com/300" alt="Project Image" class="rounded-md w-full">
+                </div>
+                <div class="card col-span-1">
+                    <img src="https://via.placeholder.com/300" alt="Project Image" class="rounded-md w-full">
+                </div>
+               
+                <!-- Social Icons -->
+                <div class="card col-span-1 flex flex-col justify-between p-4">
+                    <div class="social-icons flex justify-center mb-4">
+                        <a href="https://twitter.com" target="_blank"><img src="https://via.placeholder.com/20" alt="Twitter"></a>
+                        <a href="https://dribbble.com" target="_blank"><img src="https://via.placeholder.com/20" alt="Dribbble"></a>
+                        <a href="https://instagram.com" target="_blank"><img src="https://via.placeholder.com/20" alt="Instagram"></a>
+                        <a href="https://linkedin.com" target="_blank"><img src="https://via.placeholder.com/20" alt="LinkedIn"></a>
+                        <a href="https://behance.net" target="_blank"><img src="https://via.placeholder.com/20" alt="Behance"></a>
+                        <a href="mailto:arcris.silang@example.com"><img src="https://via.placeholder.com/20" alt="Email"></a>
+                    </div>
+                    <div>
+                        <p class="text-center">Resources to speed your workflow</p>
+                    </div>
+                </div>
+                <!-- About Card -->
+                <div class="card col-span-1 md:col-span-2 p-4">
+                    <h2 class="text-xl font-semibold">About</h2>
+                    <p class="mt-2">Passionate about design and enjoy solving problems.</p>
+                </div>
+                <!-- Subscription Card -->
+                <div class="card col-span-1 p-4">
+                    <h2 class="text-xl font-semibold">Get design tips & guides straight to your inbox for free!</h2>
+                    <form class="mt-2">
+                        <input type="email" placeholder="Your email address" class="p-2 rounded-md w-full text-black">
+                        <button type="submit" class="mt-2 p-2 w-full bg-blue-600 rounded-md">Subscribe</button>
+                    </form>
+                </div>
+                <!-- Stack Card -->
+                <div class="card col-span-1 flex flex-col justify-between p-4">
+                    <div>
+                        <h2 class="text-xl font-semibold">Stack I use</h2>
+                        <div class="mt-2 flex">
+                            <img src="https://via.placeholder.com/40" alt="Stack 1" class="mr-2">
+                            <img src="https://via.placeholder.com/40" alt="Stack 2" class="mr-2">
+                            <img src="https://via.placeholder.com/40" alt="Stack 3" class="mr-2">
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <p class="text-center">Toggle Dark Mode</p>
+                    </div>
+                </div>
+                <!-- Stack Card -->
+                <div class="card col-span-1 flex flex-col justify-between p-4">
+                    <p class="text-center">Toggle Dark Mode</p>
+                </div>
+            </div>
+            <!-- Contact Card -->
+            <div class="col-span-2 grid lg:grid-cols-1 gap-3">
+                <div class="col-span-1 grid lg:grid-cols-3 gap-3 p-4">
+                     <div class="card">
+                        <a href="https://twitter.com" target="_blank" ><img src="https://via.placeholder.com/20" alt="Twitter" class="rounded-md w-full"></a>
+                     </div>
+                     <div class="card">
+                        <a href="https://twitter.com" target="_blank" ><img src="https://via.placeholder.com/20" alt="Twitter" class="rounded-md w-full"></a>
+                     </div>
+                     <div class="card">
+                        <a href="https://twitter.com" target="_blank" ><img src="https://via.placeholder.com/20" alt="Twitter" class="rounded-md w-full"></a>
+                     </div>
+                </div>
+                <div class="card col-span-1 p-4">
+                    <h2 class="text-xl font-semibold">Have a project in mind?</h2>
+                    <button class="mt-2 p-2 w-full bg-blue-600 rounded-md">Copy email</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
